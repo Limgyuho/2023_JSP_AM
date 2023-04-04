@@ -8,16 +8,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
                                               
 //서버를 받는 부분 Servlet의 내용은 달라야 하며 중복이 되서는 안된다
-@WebServlet("/home/printDan")
+@WebServlet("/home/printDan2")
 public class HomeMainServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		response.getWriter().append("== 8단 ==").append(request.getContextPath());
-		
-		//dna=&&
-		
+				
 		response.setContentType("text/html; charset=UTF-8");
 		
 		//요청해서 들오느는 모든 값들은 String 이다
@@ -30,7 +28,6 @@ public class HomeMainServlet2 extends HttpServlet {
 		if(inputDan == null) {
 			inputDan ="1";
 		}
-		
 		if(inputLimit == null) {
 			inputLimit ="1";
 		}
@@ -39,8 +36,7 @@ public class HomeMainServlet2 extends HttpServlet {
 		}
 		
 		
-		
-		
+		//문자형을 정수형으로 변환
 		int dan = Integer.parseInt(inputDan);
 		int limit = Integer.parseInt(inputLimit);
 		
