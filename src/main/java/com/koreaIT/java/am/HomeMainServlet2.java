@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
                                               
 //서버를 받는 부분 Servlet의 내용은 달라야 하며 중복이 되서는 안된다
+//서블릿이 요청내용을 확인한다
 @WebServlet("/home/printDan2")
 public class HomeMainServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;

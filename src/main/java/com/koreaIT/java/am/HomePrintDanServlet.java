@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-                                              
+                                             
+	
+//서블릿이 요청내용을 확인한다
 @WebServlet("/home/printDan")// url 맵핑 주소
 
 public class HomePrintDanServlet extends HttpServlet {
