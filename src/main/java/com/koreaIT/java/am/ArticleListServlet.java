@@ -22,8 +22,6 @@ public class ArticleListServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setContentType("text/html; charset=UTF-8");
-		
 		Connection conn = null;
 
 		try {
@@ -32,16 +30,15 @@ public class ArticleListServlet extends HttpServlet {
 
 			conn = DriverManager.getConnection(url, "root", "");
 			
-			SecSql sql = new SecSql();
-
-			sql.append("SELECT * FROM article");
+			SecSql sql = SecSql.from("SELECT * FROM article");
 			sql.append("ORDER BY id DESC");
+			sql.append("LIMIT 0,10");
 			
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(conn, sql);
 			
-//			response.getWriter().append(articleListMap.toString());
-			
 			request.setAttribute("articleListMap", articleListMap);
+			
+			
 			
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 			
