@@ -1,3 +1,4 @@
+
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,8 +8,6 @@
 <%
 	Map<String, Object> articleRow = (Map) request.getAttribute("articleRow");
 %>
-
-
 
 <html>
 <head>
@@ -22,9 +21,9 @@
 	<div>날짜 : <%= (LocalDateTime) articleRow.get("regDate") %></div>
 	<div>제목 : <%= (String) articleRow.get("title") %></div>
 	<div>내용 : <%= (String) articleRow.get("body") %></div>
-	<div><a href="list">목록</a></div>
-	
-	
-<!-- 	<div><a href=""></a></div> -->
+	<div>
+		<a href="list">목록</a>
+		<a href="doDelete?id=<%= (int) articleRow.get("id") %>">삭제</a>
+	</div>
 </body>
 </html>
