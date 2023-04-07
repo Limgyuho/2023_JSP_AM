@@ -1,4 +1,3 @@
-
 package com.koreaIT.java.am;
 
 import java.io.IOException;
@@ -16,8 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/article/doModify")
-public class ArticleDoModifyServlet extends HttpServlet {
+@WebServlet("/article/dojoin")
+public class MemberDoJoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	@Override
@@ -31,20 +30,16 @@ public class ArticleDoModifyServlet extends HttpServlet {
 
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUser(), Config.getDBPassWd());
 			
-			int id = Integer.parseInt(request.getParameter("id"));
-			String title = request.getParameter("title");
-			String body = request.getParameter("body");
+			String id = request.getParameter("loginId");
+			String pw = request.getParameter("loginPw");
+			String name = request.getParameter("name");
 			
-			SecSql sql = SecSql.from("UPDATE article");
-			sql.append("SET updateDate = NOW()");
-			sql.append(", title = ?", title);
-			sql.append(", `body` = ?", body);
-			sql.append("WHERE id = ?", id);
-			
-			DBUtil.update(conn, sql);
-			
-			response.getWriter().append(String.format("<script>alert('%d번 글이 수정 되었습니다.'); location.replace('detail?id=%d');</script>", id, id));
-			
+			SecSql sql = SecSql.from("INSERT INTO `member`");
+			sql.append("SET regDate = NOW()");
+			sql.append(", loginId = ?", id);
+			sql.append(", `loginPw` = ?", pw);
+			sql.append(", `name` = ?", name);				
+					
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
 		} catch (SQLException e) {

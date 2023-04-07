@@ -14,5 +14,9 @@ public class MainPageServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
+		
+		
+		
 	}
 }
+

@@ -58,6 +58,7 @@
 	
 	<div class="paging">
 		<%
+// 		현재 페이지가 1보다 크면 아래 버튼 생성
 		if (cPage > 1) {
 		%>
 			<a href="list?page=1">◀</a>
@@ -65,15 +66,19 @@
 		}
 		%>
 		<%
+// 		보여지는 첫 페이지 부터 마지막 페이지까지
 		for (int i = from; i <= end; i++) { 
 		%>
+<!-- 		번호를 선택 하면 현재 선택한 페이지가 빨간색으로나오며 이동 한다 -->
 			<a class="<%= cPage == i ? "red" : ""%>" href="list?page=<%= i %>"><%= i %></a>
 		<%
 		} 
 		%>
 		<%
+// 		현재 페이지가 전체 페이지 보다 작을때 
 		if (cPage < totalPage) {
 		%>
+		아래의 버튼 생성
 			<a href="list?page=<%= totalPage %>">▶</a>
 		<% 
 		}

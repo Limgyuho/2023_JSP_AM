@@ -1,10 +1,10 @@
-
 package com.koreaIT.java.am;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.koreaIT.java.am.config.Config;
 import com.koreaIT.java.am.util.DBUtil;
@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/article/doModify")
-public class ArticleDoModifyServlet extends HttpServlet {
+@WebServlet("/member/dojoin")
+public class MemberJoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	@Override
@@ -32,18 +32,14 @@ public class ArticleDoModifyServlet extends HttpServlet {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUser(), Config.getDBPassWd());
 			
 			int id = Integer.parseInt(request.getParameter("id"));
-			String title = request.getParameter("title");
-			String body = request.getParameter("body");
 			
-			SecSql sql = SecSql.from("UPDATE article");
-			sql.append("SET updateDate = NOW()");
-			sql.append(", title = ?", title);
-			sql.append(", `body` = ?", body);
-			sql.append("WHERE id = ?", id);
+			SecSql sql = SecSql.from("SELECT COUNT(*) FROM `member`");
 			
-			DBUtil.update(conn, sql);
+			Map<String, Object> memberRow = DBUtil.selectRow(conn, sql);
 			
-			response.getWriter().append(String.format("<script>alert('%d번 글이 수정 되었습니다.'); location.replace('detail?id=%d');</script>", id, id));
+			request.setAttribute("memberRow", memberRow);
+			
+			request.getRequestDispatcher("/jsp/article/join.jsp").forward(request, response);
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
@@ -58,10 +54,5 @@ public class ArticleDoModifyServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 }
