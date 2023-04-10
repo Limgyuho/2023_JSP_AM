@@ -78,7 +78,6 @@
 // 		현재 페이지가 전체 페이지 보다 작을때 
 		if (cPage < totalPage) {
 		%>
-		아래의 버튼 생성
 			<a href="list?page=<%= totalPage %>">▶</a>
 		<% 
 		}

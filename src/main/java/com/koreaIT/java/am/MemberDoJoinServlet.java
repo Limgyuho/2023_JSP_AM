@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/article/dojoin")
+@WebServlet("/member/doJoin")
 public class MemberDoJoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -30,16 +30,20 @@ public class MemberDoJoinServlet extends HttpServlet {
 
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUser(), Config.getDBPassWd());
 			
-			String id = request.getParameter("loginId");
-			String pw = request.getParameter("loginPw");
+			String loginId = request.getParameter("loginId");
+			String loginPw = request.getParameter("loginPw");
 			String name = request.getParameter("name");
 			
 			SecSql sql = SecSql.from("INSERT INTO `member`");
 			sql.append("SET regDate = NOW()");
-			sql.append(", loginId = ?", id);
-			sql.append(", `loginPw` = ?", pw);
-			sql.append(", `name` = ?", name);				
-					
+			sql.append(", loginId = ?", loginId);
+			sql.append(", loginPw = ?", loginPw);
+			sql.append(", name = ?", name);
+			
+			int id = DBUtil.insert(conn, sql);
+			
+			response.getWriter().append(String.format("<script>alert('%s님 환영합니다'); location.replace('../home/main');</script>", loginId));
+			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
 		} catch (SQLException e) {
