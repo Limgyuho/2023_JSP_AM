@@ -1,3 +1,4 @@
+
 # DB 삭제/생성/사용
 DROP DATABASE IF EXISTS JSPTest;
 CREATE DATABASE JSPTest;
@@ -10,6 +11,16 @@ CREATE TABLE article(
 	updateDate DATETIME NOT NULL,
 	title VARCHAR(100) NOT NULL,
 	`body` TEXT NOT NULL
+);
+
+# member 테이블 생성
+CREATE TABLE `member`(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	loginId VARCHAR(50) NOT NULL,
+	loginPw VARCHAR(100) NOT NULL,
+	`name` VARCHAR(50) NOT NULL
 );
 
 # article 테스트 데이터
@@ -31,10 +42,13 @@ updateDate = NOW(),
 title = 'test3',
 `body` = 'test3';
 
+# 테스트 데이터 대량 추가 방법
+INSERT INTO article(regDate, updateDate, title, `body`)
+SELECT NOW(), NOW(), CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
+FROM article;
+
+# 테이블 안의 데이터 삭제시 캐시같은것도 같이 삭제
+TRUNCATE article
+
 SELECT * FROM article;
-
-
-
--- 테스트
-INSERT INTO article(regDate,title,`body`)
-SELECT NOW(), CONCAT('제목_',RAND(),CONCAT('내용_',RAND())
+SELECT * FROM `member`;
