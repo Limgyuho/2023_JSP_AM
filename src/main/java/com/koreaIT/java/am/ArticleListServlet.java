@@ -1,3 +1,4 @@
+
 package com.koreaIT.java.am;
 
 import java.io.IOException;
@@ -54,7 +55,10 @@ public class ArticleListServlet extends HttpServlet {
 				end = totalPage;
 			}
 			
-			sql = SecSql.from("SELECT * FROM article");
+			sql = SecSql.from("SELECT A.*, M.name AS writerName");
+			sql.append("FROM article A");
+			sql.append("INNER JOIN `member` M");
+			sql.append("ON A.memberId = M.id");
 			sql.append("ORDER BY id DESC");
 			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
 			
