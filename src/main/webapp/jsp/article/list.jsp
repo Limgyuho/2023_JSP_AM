@@ -1,4 +1,3 @@
-
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,6 +19,8 @@
 </head>
 <body>
 	<h1>게시물 리스트</h1>
+	
+	<%@ include file="../topBar/topBar.jsp" %>
 	
 	<div>
 		<a href="write">글쓰기</a>

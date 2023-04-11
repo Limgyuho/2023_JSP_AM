@@ -39,6 +39,10 @@ public class ArticleDetailServlet extends HttpServlet {
 			sql.append("ON A.memberId = M.id");
 			sql.append("WHERE A.id = ?", id);
 			
+			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
+			
+			request.setAttribute("articleRow", articleRow);
+			
 			HttpSession session = request.getSession();
 			
 			int loginedMemberId = -1;
@@ -49,13 +53,7 @@ public class ArticleDetailServlet extends HttpServlet {
 			
 			request.setAttribute("loginedMemberId", loginedMemberId);
 			
-			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
-			
-			request.setAttribute("articleRow", articleRow);
-			
 			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
-			
-			
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
